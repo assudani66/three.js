@@ -264,15 +264,12 @@ button {
 	}
 
 input, textarea {
-	border: 1px solid transparent;
-	color: #444;
+	border-radius: 100px;
+	background: rgba(255, 255, 255, 0.04);
+	
 }
 
 input.Number {
-	color: #08f!important;
-	font-size: 12px;
-	border: 0px;
-	padding: 2px;
 }
 
 select {
@@ -302,10 +299,11 @@ select {
 
 #viewport {
 	position: absolute;
-	top: 32px;
 	left: 0;
-	right: 300px;
 	bottom: 0;
+	width:100vw;
+	height: 100vh;
+
 }
 
 	#viewport #info {
@@ -368,7 +366,7 @@ select {
 			padding: 5px 0;
 			background: #eee;
 			width: 150px;
-			max-height: calc(100% - 80px);
+			max-height: calc(100vh - 80px);
 			overflow: auto;
 		}
 
