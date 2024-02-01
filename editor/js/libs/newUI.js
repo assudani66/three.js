@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
   const menuItem = () => {
-    const menuItem = document.querySelector("#menubar");
-    applyStyle(menuItem,menubarStyle)
+    const menuItemElement = document.querySelector("#menubar");
+    applyStyle(menuItemElement,menubarStyle)
   }
 
   menuItem();
