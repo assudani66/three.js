@@ -1,6 +1,7 @@
   
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
- 
+  import { getFirestore,doc, setDoc ,getDoc  } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
   import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";  
   const firebaseConfig = {
 
@@ -42,13 +43,18 @@
         console.error(errorCode,errorMessage)
     })
   }
+  const db = getFirestore(app);
 
   export const checkAuth = () =>{
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async(user) => {
       if(user) {
-        console.log(user)
-        window.location.href = "user_info.html";
-
+      const docRef = doc(db,"userInfo",user.displayName.replaceAll(' ',''))
+      const docSnap = await getDoc(docRef)
+				if(docSnap.exists){
+					window.location.href = "/editor"
+				}else{
+          window.location.href = "user_info.html";
+        }
       } else {
       }
     })
