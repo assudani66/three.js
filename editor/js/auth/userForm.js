@@ -45,12 +45,14 @@ import { getFirestore,doc, setDoc ,getDoc  } from "https://www.gstatic.com/fireb
 				avatar.src = user.photoURL
 				userName.innerHTML = user.displayName
 				userEmail.innerHTML = user.email
-				const docRef = doc(db,"userInfo",user.displayName.replaceAll(' ',''))
+				const docRef = doc(db,"usersInfo",user.displayName.replaceAll(' ',''))
+				console.log(user.displayName.replaceAll(' ',''))
 				const docSnap = await getDoc(docRef)
-				if(docSnap.exists){
+				console.log(docRef)
+				console.log(docSnap.exists())
+				if(docSnap.exists()){
 					window.location.href = "/editor"
 				}
-				
 			} else {
 				window.location.href = "auth.html";
 			}

@@ -48,14 +48,13 @@
   export const checkAuth = () =>{
     onAuthStateChanged(auth, async(user) => {
       if(user) {
-      const docRef = doc(db,"userInfo",user.displayName.replaceAll(' ',''))
+      const docRef = doc(db,"usersInfo",user.displayName.replaceAll(' ',''))
       const docSnap = await getDoc(docRef)
-				if(docSnap.exists){
+				if(docSnap.exists()){
 					window.location.href = "/editor"
 				}else{
           window.location.href = "user_info.html";
         }
-      } else {
       }
     })
   } 
