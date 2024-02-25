@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <link rel="stylesheet" href="css/userForm.css">
+    <div class="main">
+        <div class="login-div">
+          <img src="./public/logo.svg" class="main-logo"  />
+          <form class="form">
+            <div class="avatar-div">
+                <img class="avatar" src="./public/environment.png"/>
+                <p class="user-name" id="userName">...</p>
+                <p class="user-email" id="userEmail">...</p>
+            </div>
+            <div class="form-container">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" name="company-name" placeholder="Write your company name">
+            </div>
+            
+            <div class="form-container">
+                <label for="occupation">What's your occupation:</label>
+                <select id="occupation" name="occupation" placeholder="Select your occupation">
+                    <option value="Designer">Designer</option>
+                    <option value="Developer">Developer</option>
+                    <option value="Artist">Artist</option>
+                    <option value="Creator">Creator</option>
+                    <option value="Marketer">Marketer</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        
+            <div class="form-container">
+                <label for="describe-you-best">What describes you best:</label>
+                <select id="describe-you-best" name="describe-you-best">
+                    <option value="Team Player">Team Player</option>
+                    <option value="Independent / Freelancer">Independent / Freelancer</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Founder">Founder</option>
+                    <option value="Teacher">Teacher</option>
+                    <option value="Student">Student</option>
+                    <option value="Hobbyist">Hobbyist</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        
+            <div class="form-container">
+                <label>Which software do you use on a daily basis?</label>
+                <select id="software-used" name="software-used">
+                    <option value="Figma">Figma</option>
+                    <option value="Spline">Spline</option>
+                    <option value="Blender">Blender</option>
+                    <option value="Unity">Unity</option>
+                    <option value="Bezi">Bezi</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </form>
+        <button id="submit" type="submit" class="submitButton">Submit</button>
+        <button id="signOutBtn" class="submitButton">Sign out</button>
+        </div>
+      </div>
+      <script type="module" src="./js/auth/userForm.js"></script>
+</body>
+</html>

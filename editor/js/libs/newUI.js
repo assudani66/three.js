@@ -174,3 +174,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
   });
 
+const avatar = document.createElement("img")
+avatar.id = "avatar"
+avatar.src = "../public/google.svg"
+avatar.style.width = "60px"
+avatar.style.display = "absoulte"
+avatar.style.borderRadius = "50%"
+avatar.style.zIndex = "1"
+const panel = document.createElement("div")
+
+document.body.appendChild(avatar);
+
+const signOutButton = document.createElement("button")
+signOutButton.id = "signOut"
+signOutButton.innerHTML = "signout"
+signOutButton.style.display = "absolute"
+signOutButton.style.top = "-30px"
+signOutButton.style.left = "80px"
+
+const menubar = document.querySelector("#menubar")
+
+document.body.appendChild(signOutButton)

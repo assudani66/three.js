@@ -300,6 +300,7 @@ select {
 #viewport {
 	position: absolute;
 	left: 0;
+	z-index: -1;
 	bottom: 0;
 	width:100vw;
 	height: 100vh;

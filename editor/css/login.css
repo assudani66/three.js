@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'General Sans';
+    src: url('GeneralSans-Regular.ttf') format('truetype'); /* Adjust the path as needed */
+    font-weight: normal;
+    font-style: normal;
+  }
+
+body{
+    font-family: 'General Sans', sans-serif;
+    margin: 0px;
+}
+
+.loginButton {
+    display: flex;
+    width: 274px;
+    height: 52px;
+    padding: 8px 24px; 
+    border-radius: 100px;
+    gap: 16px;
+    border: 1px solid #FFFFFF0A;
+    background: #111111CC;
+    align-items: center;
+    color: #EDF2F3CC;
+    justify-content: center;
+}
+
+.main-logo{
+    width: 161px;
+
+}
+
+.login-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
+
+.subtext{
+    color: #EDF2F3CC;
+    font-size: 12px;
+}
+
+.subtext a {
+    color: #EDF2F3CC;
+    text-decoration: underline;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('../public/environment.png');
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}

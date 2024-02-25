@@ -11,9 +11,8 @@
 	</head>
 	<body>
 		<link rel="stylesheet" href="css/main.css">
-
 		<script src="./jsm/libs/draco/draco_decoder.js"></script>
-
+		
 		<link rel="stylesheet" href="js/libs/codemirror/codemirror.css">
 		<link rel="stylesheet" href="js/libs/codemirror/theme/monokai.css">
 		<script src="js/libs/codemirror/codemirror.js"></script>
@@ -24,7 +23,7 @@
 		<script src="js/libs/jsonlint.js"></script>
 
 		<script src="js/libs/ffmpeg.min.js" defer></script>
-
+		
 		<link rel="stylesheet" href="js/libs/codemirror/addon/dialog.css">
 		<link rel="stylesheet" href="js/libs/codemirror/addon/show-hint.css">
 		<link rel="stylesheet" href="js/libs/codemirror/addon/tern.css">
@@ -257,5 +256,70 @@
 			}
 
 		</script>
+
+<script type="module" >
+  
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+   
+	import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";  
+  
+	const firebaseConfig = {
+  
+	  apiKey: "AIzaSyDw6HfUwmO7h7G18uaiBDQ2jOpiYQ-uQkg",
+  
+	  authDomain: "spatialos-fa0e7.firebaseapp.com",
+  
+	  databaseURL: "https://spatialos-fa0e7-default-rtdb.asia-southeast1.firebasedatabase.app",
+  
+	  projectId: "spatialos-fa0e7",
+  
+	  storageBucket: "spatialos-fa0e7.appspot.com",
+  
+	  messagingSenderId: "304892230224",
+  
+	  appId: "1:304892230224:web:cc68a85f8652278ebdaf55",
+  
+	  measurementId: "G-SN67L7GHND"
+  
+	};
+  
+  
+	const app = initializeApp(firebaseConfig);
+	const auth = getAuth();
+  
+  
+	const provider = new GoogleAuthProvider();
+	provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+  
+	const userSignOut = async() => {
+	  signOut(auth).then(() => {
+		  
+	  }).catch((error) => {
+		  console.error(error)
+	  })
+	}
+
+	const avatar = document.querySelector("#avatar")
+  
+	export const checkAuth = () =>{
+	  onAuthStateChanged(auth, (user) => {
+		if(user) {
+		  console.log(user)
+			avatar.src = user.photoURL
+		} else {
+			window.location.href = "auth.html"
+		}
+	  })
+	} 
+
+	
+  
+	checkAuth()
+	const signout  = document.querySelector("#signOut")
+	console.log(signout)
+	signout.addEventListener("click",async()=>{
+		await userSignOut()
+	})
+		  </script>
 	</body>
 </html>
