@@ -42,8 +42,7 @@
 		<script src="js/libs/ternjs/doc_comment.js"></script>
 		<script src="js/libs/tern-threejs/threejs.js"></script>
 		<script src="js/libs/signals.min.js"></script>
-		<script src="js/libs/newUI.js"></script>
-
+		
 		<script type="importmap">
 			{
 				"imports": {
@@ -52,225 +51,22 @@
 				}
 			}
 		</script>
-
-		<script type="module">
-
-			import * as THREE from 'three';
-
-			import { Editor } from './js/Editor.js';
-			import { Viewport } from './js/Viewport.js';
-			import { Toolbar } from './js/Toolbar.js';
-			import { Script } from './js/Script.js';
-			import { Player } from './js/Player.js';
-			import { Sidebar } from './js/Sidebar.js';
-			import { Menubar } from './js/Menubar.js';
-			import { Resizer } from './js/Resizer.js';
-			import { VRButton } from 'three/addons/webxr/VRButton.js';
-
-			window.URL = window.URL || window.webkitURL;
-			window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
-
-			Number.prototype.format = function () {
-
-				return this.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, '$1,' );
-
-			};
-
-			//
-
-			const editor = new Editor();
-
-			window.editor = editor; // Expose editor to Console
-			window.THREE = THREE; // Expose THREE to APP Scripts and Console
-			window.VRButton = VRButton; // Expose VRButton to APP Scripts
-
-			const viewport = new Viewport( editor );
-			document.body.appendChild( viewport.dom );
-
-			const toolbar = new Toolbar( editor );
-			document.body.appendChild( toolbar.dom );
-
-			const script = new Script( editor );
-			document.body.appendChild( script.dom );
-
-			const player = new Player( editor );
-			document.body.appendChild( player.dom );
-
-			const sidebar = new Sidebar( editor );
-			document.body.appendChild( sidebar.dom );
-
-			const menubar = new Menubar( editor );
-			document.body.appendChild( menubar.dom );
-
-			const resizer = new Resizer( editor );
-			document.body.appendChild( resizer.dom );
-
-			//
-
-			editor.storage.init( function () {
-
-				editor.storage.get( function ( state ) {
-
-					if ( isLoadingFromHash ) return;
-
-					if ( state !== undefined ) {
-
-						editor.fromJSON( state );
-
-					}
-
-					const selected = editor.config.getKey( 'selected' );
-
-					if ( selected !== undefined ) {
-
-						editor.selectByUuid( selected );
-
-					}
-
-				} );
-
-				//
-
-				let timeout;
-
-				function saveState() {
-
-					if ( editor.config.getKey( 'autosave' ) === false ) {
-
-						return;
-
-					}
-
-					clearTimeout( timeout );
-
-					timeout = setTimeout( function () {
-
-						editor.signals.savingStarted.dispatch();
-
-						timeout = setTimeout( function () {
-
-							editor.storage.set( editor.toJSON() );
-
-							editor.signals.savingFinished.dispatch();
-
-						}, 100 );
-
-					}, 1000 );
-
-				}
-
-				const signals = editor.signals;
-
-				signals.geometryChanged.add( saveState );
-				signals.objectAdded.add( saveState );
-				signals.objectChanged.add( saveState );
-				signals.objectRemoved.add( saveState );
-				signals.materialChanged.add( saveState );
-				signals.sceneBackgroundChanged.add( saveState );
-				signals.sceneEnvironmentChanged.add( saveState );
-				signals.sceneFogChanged.add( saveState );
-				signals.sceneGraphChanged.add( saveState );
-				signals.scriptChanged.add( saveState );
-				signals.historyChanged.add( saveState );
-
-			} );
-
-			//
-
-			document.addEventListener( 'dragover', function ( event ) {
-
-				event.preventDefault();
-				event.dataTransfer.dropEffect = 'copy';
-
-			} );
-
-			document.addEventListener( 'drop', function ( event ) {
-
-				event.preventDefault();
-
-				if ( event.dataTransfer.types[ 0 ] === 'text/plain' ) return; // Outliner drop
-
-				if ( event.dataTransfer.items ) {
-
-					// DataTransferItemList supports folders
-
-					editor.loader.loadItemList( event.dataTransfer.items );
-
-				} else {
-
-					editor.loader.loadFiles( event.dataTransfer.files );
-
-				}
-
-			} );
-
-			function onWindowResize() {
-
-				editor.signals.windowResize.dispatch();
-
-			}
-
-			window.addEventListener( 'resize', onWindowResize );
-
-			onWindowResize();
-
-			//
-
-			let isLoadingFromHash = false;
-			const hash = window.location.hash;
-
-			if ( hash.slice( 1, 6 ) === 'file=' ) {
-
-				const file = hash.slice( 6 );
-
-				if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
-
-					const loader = new THREE.FileLoader();
-					loader.crossOrigin = '';
-					loader.load( file, function ( text ) {
-
-						editor.clear();
-						editor.fromJSON( JSON.parse( text ) );
-
-					} );
-
-					isLoadingFromHash = true;
-
-				}
-
-			}
-
-			// ServiceWorker
-
-			if ( 'serviceWorker' in navigator ) {
-
-				try {
-
-					navigator.serviceWorker.register( 'sw.js' );
-
-				} catch ( error ) {
-
-				}
-
-			}
-
-		</script>
 		<div class="loading-background">
 			<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
-
-    <dotlottie-player src="https://lottie.host/21053ea4-ea75-4ee0-9351-d7f68e20eb6d/DFMXPYAfKZ.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+			
+			<dotlottie-player src="https://lottie.host/21053ea4-ea75-4ee0-9351-d7f68e20eb6d/DFMXPYAfKZ.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
 		</div>
-<script type="module" >
+		<script type="module" >
   
-	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-   
-	import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";  
-  
-	const firebaseConfig = {
-  
-	  apiKey: "AIzaSyDw6HfUwmO7h7G18uaiBDQ2jOpiYQ-uQkg",
-  
-	  authDomain: "spatialos-fa0e7.firebaseapp.com",
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+			
+			import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";  
+			
+			const firebaseConfig = {
+				
+				apiKey: "AIzaSyDw6HfUwmO7h7G18uaiBDQ2jOpiYQ-uQkg",
+				
+				authDomain: "spatialos-fa0e7.firebaseapp.com",
   
 	  databaseURL: "https://spatialos-fa0e7-default-rtdb.asia-southeast1.firebasedatabase.app",
   
@@ -333,5 +129,209 @@
 		await userSignOut()
 	})
 		  </script>
+		<script type="module" defer>
+			
+			import * as THREE from 'three';
+			
+			import { Editor } from './js/Editor.js';
+			import { Viewport } from './js/Viewport.js';
+			import { Toolbar } from './js/Toolbar.js';
+			import { Script } from './js/Script.js';
+			import { Player } from './js/Player.js';
+			import { Sidebar } from './js/Sidebar.js';
+			import { Menubar } from './js/Menubar.js';
+			import { Resizer } from './js/Resizer.js';
+			import { VRButton } from 'three/addons/webxr/VRButton.js';
+			
+			window.URL = window.URL || window.webkitURL;
+			window.BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder || window.MozBlobBuilder;
+			
+			Number.prototype.format = function () {
+				
+				return this.toString().replace( /(\d)(?=(\d{3})+(?!\d))/g, '$1,' );
+				
+			};
+			
+			//
+			
+			const editor = new Editor();
+			
+			window.editor = editor; // Expose editor to Console
+			window.THREE = THREE; // Expose THREE to APP Scripts and Console
+			window.VRButton = VRButton; // Expose VRButton to APP Scripts
+			
+			const viewport = new Viewport( editor );
+			document.body.appendChild( viewport.dom );
+			
+			const toolbar = new Toolbar( editor );
+			document.body.appendChild( toolbar.dom );
+			
+			const script = new Script( editor );
+			document.body.appendChild( script.dom );
+			
+			const player = new Player( editor );
+			document.body.appendChild( player.dom );
+			
+			const sidebar = new Sidebar( editor );
+			document.body.appendChild( sidebar.dom );
+			
+			const menubar = new Menubar( editor );
+			document.body.appendChild( menubar.dom );
+			
+			const resizer = new Resizer( editor );
+			document.body.appendChild( resizer.dom );
+			
+			//
+			
+			editor.storage.init( function () {
+
+				editor.storage.get( function ( state ) {
+					
+					if ( isLoadingFromHash ) return;
+					
+					if ( state !== undefined ) {
+						
+						editor.fromJSON( state );
+						
+					}
+					
+					const selected = editor.config.getKey( 'selected' );
+					
+					if ( selected !== undefined ) {
+						
+						editor.selectByUuid( selected );
+						
+					}
+					
+				} );
+				
+				//
+				
+				let timeout;
+				
+				function saveState() {
+					
+					if ( editor.config.getKey( 'autosave' ) === false ) {
+						
+						return;
+						
+					}
+					
+					clearTimeout( timeout );
+					
+					timeout = setTimeout( function () {
+						
+						editor.signals.savingStarted.dispatch();
+						
+						timeout = setTimeout( function () {
+							
+							editor.storage.set( editor.toJSON() );
+							
+							editor.signals.savingFinished.dispatch();
+							
+						}, 100 );
+						
+					}, 1000 );
+					
+				}
+				
+				const signals = editor.signals;
+				
+				signals.geometryChanged.add( saveState );
+				signals.objectAdded.add( saveState );
+				signals.objectChanged.add( saveState );
+				signals.objectRemoved.add( saveState );
+				signals.materialChanged.add( saveState );
+				signals.sceneBackgroundChanged.add( saveState );
+				signals.sceneEnvironmentChanged.add( saveState );
+				signals.sceneFogChanged.add( saveState );
+				signals.sceneGraphChanged.add( saveState );
+				signals.scriptChanged.add( saveState );
+				signals.historyChanged.add( saveState );
+				
+			} );
+			
+			//
+			
+			document.addEventListener( 'dragover', function ( event ) {
+
+				event.preventDefault();
+				event.dataTransfer.dropEffect = 'copy';
+				
+			} );
+			
+			document.addEventListener( 'drop', function ( event ) {
+				
+				event.preventDefault();
+				
+				if ( event.dataTransfer.types[ 0 ] === 'text/plain' ) return; // Outliner drop
+				
+				if ( event.dataTransfer.items ) {
+					
+					// DataTransferItemList supports folders
+					
+					editor.loader.loadItemList( event.dataTransfer.items );
+					
+				} else {
+					
+					editor.loader.loadFiles( event.dataTransfer.files );
+					
+				}
+				
+			} );
+			
+			function onWindowResize() {
+				
+				editor.signals.windowResize.dispatch();
+				
+			}
+			
+			window.addEventListener( 'resize', onWindowResize );
+			
+			onWindowResize();
+			
+			//
+			
+			let isLoadingFromHash = false;
+			const hash = window.location.hash;
+			
+			if ( hash.slice( 1, 6 ) === 'file=' ) {
+				
+				const file = hash.slice( 6 );
+				
+				if ( confirm( 'Any unsaved data will be lost. Are you sure?' ) ) {
+					
+					const loader = new THREE.FileLoader();
+					loader.crossOrigin = '';
+					loader.load( file, function ( text ) {
+						
+						editor.clear();
+						editor.fromJSON( JSON.parse( text ) );
+						
+					} );
+					
+					isLoadingFromHash = true;
+					
+				}
+				
+			}
+			
+			// ServiceWorker
+			
+			if ( 'serviceWorker' in navigator ) {
+				
+				try {
+					
+					navigator.serviceWorker.register( 'sw.js' );
+					
+				} catch ( error ) {
+					
+				}
+				
+			}
+			
+			</script>
+		<script src="js/libs/newUI.js" defer></script>
+
 	</body>
 </html>
