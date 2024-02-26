@@ -475,6 +475,7 @@ select {
 	overflow: auto;
 	resize: vertical;
 	outline: none !important;
+	z-index: -1;
 }
 
 	.Outliner .option {
@@ -694,6 +695,23 @@ select {
 		background-color: rgba(21,60,94,1);
 	}
 
+}
+
+.loading-background{
+	background-color: #111;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	z-index: 10;
+}
+
+#mainContainer{
+	z-index: -1;
+}
+#menubar{
+	z-index: -1;
 }
 
 /* Temporary Chrome fix (#24794) */

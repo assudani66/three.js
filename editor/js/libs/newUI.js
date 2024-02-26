@@ -81,8 +81,8 @@ document.addEventListener("DOMContentLoaded", function() {
     applyStyle(materialElement[1], PropertiesStyles);
     applyStyle(objectElement[1], PropertiesStyles);
 
-    console.log(materialElement)
     const mainContainer = document.createElement("div");
+    mainContainer.id = "mainContainer"
 
   // Create containers for geometry, material, and object
   const geometryTab = document.createElement("div");
@@ -150,6 +150,18 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   outLiner()
 
+  const toolbarStyle = {
+    top:"60px",
+    left:"310px",
+    zIndex:"-1"
+  }
+
+  const toolBar = () => {
+    const toolbarElement = document.querySelector("#toolbar")
+    applyStyle(toolbarElement,toolbarStyle)
+  }
+  toolBar()
+
   // const viewHelperStyles = {
   //   position:"absolute",
   //   top:"100px",
@@ -178,10 +190,10 @@ const avatar = document.createElement("img")
 avatar.id = "avatar"
 avatar.src = "../public/google.svg"
 avatar.style.width = "60px"
-avatar.style.display = "absoulte"
+// avatar.style.display = "absoulte"
 avatar.style.borderRadius = "50%"
-avatar.style.zIndex = "1"
-const panel = document.createElement("div")
+avatar.style.zIndex = "1000"
+avatar.style.display = "none"
 
 document.body.appendChild(avatar);
 
@@ -189,8 +201,10 @@ const signOutButton = document.createElement("button")
 signOutButton.id = "signOut"
 signOutButton.innerHTML = "signout"
 signOutButton.style.display = "absolute"
-signOutButton.style.top = "-30px"
+signOutButton.style.top = "10px"
 signOutButton.style.left = "80px"
+signOutButton.style.display = "none"
+signOutButton.style.zIndex = 1000
 
 const menubar = document.querySelector("#menubar")
 

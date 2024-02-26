@@ -12,7 +12,6 @@
 	<body>
 		<link rel="stylesheet" href="css/main.css">
 		<script src="./jsm/libs/draco/draco_decoder.js"></script>
-		
 		<link rel="stylesheet" href="js/libs/codemirror/codemirror.css">
 		<link rel="stylesheet" href="js/libs/codemirror/theme/monokai.css">
 		<script src="js/libs/codemirror/codemirror.js"></script>
@@ -256,7 +255,11 @@
 			}
 
 		</script>
+		<div class="loading-background">
+			<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script> 
 
+    <dotlottie-player src="https://lottie.host/21053ea4-ea75-4ee0-9351-d7f68e20eb6d/DFMXPYAfKZ.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
+		</div>
 <script type="module" >
   
 	import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
@@ -302,7 +305,16 @@
 	const avatar = document.querySelector("#avatar")
   
 	export const checkAuth = () =>{
-	  onAuthStateChanged(auth, (user) => {
+		const loadingScreen = document.querySelector(".loading-background")
+		const avatar = document.querySelector("#avatar")
+		const signOutButton = document.querySelector("#signOut")
+		onAuthStateChanged(auth, (user) => {
+			loadingScreen.style.display = "none"
+			avatar.style.display = "block"; 
+			avatar.style.position = "absolute";
+			signOutButton.style.display = "block"
+			signOutButton.style.position = "absolute";
+			console.log(avatar,signOutButton)
 		if(user) {
 		  console.log(user)
 			avatar.src = user.photoURL
