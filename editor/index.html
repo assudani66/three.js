@@ -85,7 +85,27 @@
   
 	const app = initializeApp(firebaseConfig);
 	const auth = getAuth();
-  
+	const avatar = document.createElement("img")
+	avatar.id = "avatar"
+	avatar.src = "../public/google.svg"
+	avatar.style.width = "60px"
+	// avatar.style.display = "absoulte"
+	avatar.style.borderRadius = "50%"
+	avatar.style.zIndex = "1000"
+	avatar.style.display = "none"
+
+	document.body.appendChild(avatar);
+
+	const signOutButton = document.createElement("button")
+	signOutButton.id = "signOut"
+	signOutButton.innerHTML = "signout"
+	signOutButton.style.display = "absolute"
+	signOutButton.style.top = "10px"
+	signOutButton.style.left = "80px"
+	signOutButton.style.display = "none"
+	signOutButton.style.zIndex = 1000
+
+document.body.appendChild(signOutButton)
   
 	const provider = new GoogleAuthProvider();
 	provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
@@ -98,12 +118,12 @@
 	  })
 	}
 
-	const avatar = document.querySelector("#avatar")
   
 	export const checkAuth = () =>{
 		const loadingScreen = document.querySelector(".loading-background")
-		const avatar = document.querySelector("#avatar")
 		const signOutButton = document.querySelector("#signOut")
+		const avatar = document.querySelector("#avatar")
+		console.log(avatar)
 		onAuthStateChanged(auth, (user) => {
 			loadingScreen.style.display = "none"
 			avatar.style.display = "block"; 
@@ -123,8 +143,9 @@
 	
   
 	checkAuth()
+
 	const signout  = document.querySelector("#signOut")
-	console.log(signout)
+
 	signout.addEventListener("click",async()=>{
 		await userSignOut()
 	})
